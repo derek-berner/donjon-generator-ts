@@ -1,4 +1,11 @@
-import { Dungeon, DungeonImage, CellAttribute, StairKey } from '../types/Types';
+import {
+    Dungeon,
+    DungeonImage,
+    CellAttribute,
+    StairKey,
+    Door,
+    DoorTypeAttributes
+} from '../types/Types';
 import {DungeonStyle, MapStyle} from '../types/StyleTypes';
 import { Grid } from '../types/LayoutTypes';
 
@@ -281,14 +288,14 @@ function drawDoors(gc: CanvasRenderingContext2D, dungeon: Dungeon, image: Dungeo
 }
 
 function drawVerticalDoor(
-    gc: CanvasRenderingContext2D, door: any, archSize: number, doorThickness: number, trapThickness: number,
+    gc: CanvasRenderingContext2D, door: Door, archSize: number, doorThickness: number, trapThickness: number,
     y1: number, y2: number, xc: number, yc: number,
     archColor: string, doorColor: string
 ): void {
     gc.lineWidth = 0.5;
 
     // Handle wall
-    if (door.type.wall) {
+    if (DoorTypeAttributes[door.type].wall) {
         gc.strokeStyle = archColor;
         gc.beginPath();
         gc.moveTo(xc, y1);
@@ -297,7 +304,7 @@ function drawVerticalDoor(
     }
 
     // Handle secret
-    if (door.type.secret) {
+    if (DoorTypeAttributes[door.type].secret) {
         gc.strokeStyle = doorColor;
         gc.beginPath();
         gc.moveTo(xc - 1, yc - doorThickness);
@@ -314,20 +321,20 @@ function drawVerticalDoor(
     }
 
     // Handle arch
-    if (door.type.arch) {
+    if (DoorTypeAttributes[door.type].arch) {
         gc.fillStyle = archColor;
         gc.fillRect(xc - 1, y1, 2, archSize);
         gc.fillRect(xc - 1, y2 - archSize, 2, archSize);
     }
 
     // Handle door
-    if (door.type.door) {
+    if (DoorTypeAttributes[door.type].door) {
         gc.strokeStyle = doorColor;
         gc.strokeRect(xc - doorThickness, y1 + archSize + 1, doorThickness * 2, y2 - y1 - 2 * archSize - 2);
     }
 
     // Handle lock
-    if (door.type.lock) {
+    if (DoorTypeAttributes[door.type].lock) {
         gc.beginPath();
         gc.moveTo(xc, y1 + archSize + 1);
         gc.lineTo(xc, y2 - archSize - 1);
@@ -335,7 +342,7 @@ function drawVerticalDoor(
     }
 
     // Handle trap
-    if (door.type.trap) {
+    if (DoorTypeAttributes[door.type].trap) {
         gc.beginPath();
         gc.moveTo(xc - trapThickness, yc);
         gc.lineTo(xc + trapThickness, yc);
@@ -343,7 +350,7 @@ function drawVerticalDoor(
     }
 
     // Handle portcullis
-    if (door.type.portc) {
+    if (DoorTypeAttributes[door.type].portc) {
         for (let y = y1 + archSize + 2; y < y2 - archSize; y += 2) {
             gc.beginPath();
             gc.arc(xc, y, 0.5, 0, 2 * Math.PI);
@@ -353,14 +360,14 @@ function drawVerticalDoor(
 }
 
 function drawHorizontalDoor(
-    gc: CanvasRenderingContext2D, door: any, archSize: number, doorThickness: number, trapThickness: number,
+    gc: CanvasRenderingContext2D, door: Door, archSize: number, doorThickness: number, trapThickness: number,
     x1: number, x2: number, xc: number, yc: number,
     archColor: string, doorColor: string
 ): void {
     gc.lineWidth = 0.5;
 
     // Handle wall
-    if (door.type.wall) {
+    if (DoorTypeAttributes[door.type].wall) {
         gc.strokeStyle = archColor;
         gc.beginPath();
         gc.moveTo(x1, yc);
@@ -369,7 +376,7 @@ function drawHorizontalDoor(
     }
 
     // Handle secret
-    if (door.type.secret) {
+    if (DoorTypeAttributes[door.type].secret) {
         gc.strokeStyle = doorColor;
         gc.beginPath();
         gc.moveTo(xc - doorThickness, yc - 2);
@@ -386,20 +393,20 @@ function drawHorizontalDoor(
     }
 
     // Handle arch
-    if (door.type.arch) {
+    if (DoorTypeAttributes[door.type].arch) {
         gc.fillStyle = archColor;
         gc.fillRect(x1, yc - 1, archSize, 2);
         gc.fillRect(x2 - archSize, yc - 1, archSize, 2);
     }
 
     // Handle door
-    if (door.type.door) {
+    if (DoorTypeAttributes[door.type].door) {
         gc.strokeStyle = doorColor;
         gc.strokeRect(xc + archSize + 1, yc - doorThickness, x2 - x1 - 2 * archSize - 2, doorThickness * 2);
     }
 
     // Handle lock
-    if (door.type.lock) {
+    if (DoorTypeAttributes[door.type].lock) {
         gc.beginPath();
         gc.moveTo(x1 + archSize + 1, yc);
         gc.lineTo(x2 - archSize - 1, yc);
@@ -407,7 +414,7 @@ function drawHorizontalDoor(
     }
 
     // Handle trap
-    if (door.type.trap) {
+    if (DoorTypeAttributes[door.type].trap) {
         gc.beginPath();
         gc.moveTo(xc, yc - trapThickness);
         gc.lineTo(xc, yc + trapThickness);
@@ -415,7 +422,7 @@ function drawHorizontalDoor(
     }
 
     // Handle portcullis
-    if (door.type.portc) {
+    if (DoorTypeAttributes[door.type].portc) {
         for (let x = x1 + archSize + 2; x < x2 - archSize; x += 2) {
             gc.beginPath();
             gc.arc(x, yc, 0.5, 0, 2 * Math.PI);

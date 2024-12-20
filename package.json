@@ -2,7 +2,7 @@
   "name": "donjon-ts",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://derek-berner.github.io/donjon-generator-ts",
+  "homepage": "https://bernerbits.github.io/donjon-generator-ts",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
