@@ -402,7 +402,7 @@ function drawHorizontalDoor(
     // Handle door
     if (DoorTypeAttributes[door.type].door) {
         gc.strokeStyle = doorColor;
-        gc.strokeRect(xc + archSize + 1, yc - doorThickness, x2 - x1 - 2 * archSize - 2, doorThickness * 2);
+        gc.strokeRect(x1 + archSize + 1, yc - doorThickness, x2 - x1 - 2 * archSize - 2, doorThickness * 2);
     }
 
     // Handle lock
