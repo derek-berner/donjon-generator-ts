@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/donjon-generator-ts/static/css/main.f855e6bc.css",
-    "main.js": "/donjon-generator-ts/static/js/main.d7a9746a.js",
+    "main.js": "/donjon-generator-ts/static/js/main.8b860c43.js",
     "static/js/453.567463fc.chunk.js": "/donjon-generator-ts/static/js/453.567463fc.chunk.js",
     "index.html": "/donjon-generator-ts/index.html",
     "main.f855e6bc.css.map": "/donjon-generator-ts/static/css/main.f855e6bc.css.map",
-    "main.d7a9746a.js.map": "/donjon-generator-ts/static/js/main.d7a9746a.js.map",
+    "main.8b860c43.js.map": "/donjon-generator-ts/static/js/main.8b860c43.js.map",
     "453.567463fc.chunk.js.map": "/donjon-generator-ts/static/js/453.567463fc.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f855e6bc.css",
-    "static/js/main.d7a9746a.js"
+    "static/js/main.8b860c43.js"
   ]
 }
