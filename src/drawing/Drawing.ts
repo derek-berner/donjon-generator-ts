@@ -122,10 +122,12 @@ function drawSquareGrid(gc: CanvasRenderingContext2D, image: DungeonImage, color
     }
 }
 
+const TWO_SQRT_3 = 2.0 * Math.sqrt(3);
+
 function drawHexGrid(gc: CanvasRenderingContext2D, image: DungeonImage, color: string): void {
     const dim = image.cellSize;
     const dy = dim / 2.0;
-    const dx = dim / Math.sqrt(3); // Approximately sqrt(3)
+    const dx = dim / TWO_SQRT_3;
     const nCol = Math.floor(image.width / (3 * dx));
     const nRow = Math.floor(image.height / dy);
 
