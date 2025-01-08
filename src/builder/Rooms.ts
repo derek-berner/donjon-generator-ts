@@ -1,6 +1,6 @@
 import {CellBuilder, OPENSPACE, ESPACE, containsAny, DOORSPACE} from './Cells';
 import { MutableRoom, MutableDoor } from '../types/MutableTypes';
-import { DoorType, Room, RoomPrototype, RoomLayout, CellAttribute } from '../types/Types';
+import { DoorType, Room, RoomPrototype, RoomLayout, CellAttribute, typedKeys } from '../types/Types';
 import { IDoorBuilder, IRoomBuilder } from '../types/Builders';
 import { DoorBuilder } from './Doors';
 import {Direction} from "../types/LayoutTypes";
@@ -135,11 +135,12 @@ class RoomBuilder implements IRoomBuilder {
         const c2 = (room.j! + room.width!) * 2 - 1;
 
         if (r1 < 1 || r2 > this.maxRow || c1 < 1 || c2 > this.maxCol) return;
-
-        if (Object.keys(this.checkRoomPlacement(r1, c1, r2, c2)).length !== 0) return;
-
-        this.nRooms += 1;
-        const roomId = this.nRooms;
+        
+        const hit = this.checkRoomPlacement(r1, c1, r2, c2);
+        if (hit.blocked || Object.keys(hit).length !== 0) {
+            return;
+        }
+        const roomId = ++this.nRooms;
         this.lastRoomId = roomId;
 
         for (let r = r1; r <= r2; r++) {
@@ -182,12 +183,12 @@ class RoomBuilder implements IRoomBuilder {
         return Math.floor(dungeonArea / roomArea);
     }
 
-    private checkRoomPlacement(r1: number, c1: number, r2: number, c2: number): { [key: number]: number } {
+    private checkRoomPlacement(r1: number, c1: number, r2: number, c2: number): { [key: number]: number, blocked?: true } {
         const hit: { [key: number]: number } = {};
         for (let r = r1; r <= r2; r++) {
             for (let c = c1; c <= c2; c++) {
                 if (this.cellBuilder.cells[r][c].attributes.has(CellAttribute.BLOCKED)) {
-                    return {};
+                    return { blocked: true };
                 }
                 if (this.cellBuilder.cells[r][c].attributes.has(CellAttribute.ROOM)) {
                     const id = this.cellBuilder.cells[r][c].roomId;
